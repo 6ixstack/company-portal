@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { gsap } from 'gsap';
 import AOS from 'aos';
 import logoImage from '../assets/images/logo.png';
+import './css-loader';
 
 // Initialize AOS library for scroll animations
 AOS.init({
