@@ -60,15 +60,6 @@ const initHeader = () => {
       link.classList.add('active');
     }
   });
-  
-  // Add scroll event for header styling
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  });
 };
 
 // Initialize footer
