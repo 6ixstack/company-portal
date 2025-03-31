@@ -20,9 +20,8 @@ const initHeader = () => {
   header.innerHTML = `
     <div class="container">
       <nav class="navbar navbar-expand-lg">
-        <div class="navbar-brand d-flex align-items-center">
-          <a href="index.html" class="d-flex align-items-center text-decoration-none">
-            <img src="${logoImage}" alt="6ixStack Solutions Logo" height="55" class="me-2">
+        <div class="navbar-brand">
+          <a href="index.html" class="text-decoration-none">
             <span>6ixStack <span class="text-primary">Solutions</span></span>
           </a>
         </div>
