@@ -12,6 +12,7 @@
   --bg-light: #f8f9fa;
   --bg-dark: #212529;
   --white: #ffffff;
+  --black: #000000;
   --gray-100: #f8f9fa;
   --gray-200: #e9ecef;
   --gray-300: #dee2e6;
@@ -193,15 +194,10 @@ header {
   width: 100%;
   z-index: 1000;
   transition: var(--transition);
-  padding: 0;
-  margin: 0;
-}
-/* adding a test comment */
-
-header.scrolled {
   background-color: var(--white);
   box-shadow: var(--shadow);
   padding: 0;
+  margin: 0;
 }
 
 .navbar {
@@ -222,16 +218,12 @@ header.scrolled {
 }
 
 .navbar-brand a {
-  color: var(--white);
+  color: var(--secondary-color);
   text-decoration: none;
 }
 
 .navbar-brand a:hover {
-  color: var(--white);
-}
-
-header.scrolled .navbar-brand a {
-  color: var(--secondary-color);
+  color: var(--black);
 }
 
 /* Hamburger Menu Styles */
@@ -239,27 +231,13 @@ header.scrolled .navbar-brand a {
   padding: 0.5rem;
   border: 2px solid var(--white);
   background-color: transparent;
-  color: var(--white);
+  color: var(--secondary-color);
+  border-color: var(--secondary-color);
   display: flex;
   align-items: center;
   justify-content: center;
   width: 48px;
   height: 48px;
-}
-
-header.scrolled .navbar-toggler {
-  color: var(--secondary-color);
-  border-color: var(--secondary-color);
-}
-
-.navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
-  width: 24px;
-  height: 24px;
-}
-
-header.scrolled .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(251, 173, 24, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 }
 
 /* Ensure hamburger menu is visible on mobile */
@@ -277,15 +255,11 @@ header.scrolled .navbar-toggler-icon {
 .nav-link {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 600;
-  color: var(--white);
+  color: var(--secondary-color);
   padding: 0.5rem 1rem !important;
   transition: var(--transition);
   position: relative;
   letter-spacing: -0.01em;
-}
-
-header.scrolled .nav-link {
-  color: var(--secondary-color);
 }
 
 .nav-link:before {
