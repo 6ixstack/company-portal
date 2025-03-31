@@ -25,7 +25,7 @@
     <!-- Hero Section -->
     <section class="hero">
       <div class="canvas-container">
-        <canvas id="hero-canvas"></canvas>
+        <canvas id="heroCanvas"></canvas>
       </div>
       <div class="hero-content container">
         <h1 class="display-1" data-aos="fade-up">6ixStack <span class="text-primary">Solutions</span></h1>
@@ -426,6 +426,26 @@
   <footer id="footer"></footer>
 
   <script>
+    // Carousel functionality
+    function initCarousel() {
+      const slides = document.querySelectorAll('.carousel-slide');
+      let currentSlide = 0;
+
+      // Show first slide
+      slides[0].classList.add('active');
+
+      // Rotate slides every 5 seconds
+      setInterval(() => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+      }, 5000);
+    }
+
+    // Initialize carousel when DOM is loaded
+    document.addEventListener('DOMContentLoaded', initCarousel);
+
+    // Existing modal functions
     function openServiceModal(serviceId) {
       const modal = document.getElementById(`${serviceId}-modal`);
       modal.style.display = 'flex';

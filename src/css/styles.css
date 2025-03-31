@@ -277,14 +277,56 @@ header {
 
 /* Hero Section */
 .hero {
-  position: relative;
   height: 100vh;
   min-height: 700px;
   display: flex;
   align-items: center;
-  background-color: var(--secondary-color);
   overflow: hidden;
   color: var(--white);
+  position: relative;
+}
+
+.hero-carousel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.slide-1 {
+  background-image: url(../assets/images/homebackgrund/background1.png);
+}
+
+.slide-2 {
+  background-image: url(../assets/images/homebackgrund/background2.png);
+}
+
+.slide-3 {
+  background-image: url(../assets/images/homebackgrund/background3.png);
+}
+
+.carousel-slide.active {
+  opacity: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
 }
 
 /* 6ix Stack Interactive Section */
@@ -568,34 +610,6 @@ header {
   width: 100%;
   height: 100%;
   z-index: 1;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 800px;
-}
-
-.hero h1 {
-  font-size: 4rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
-  color: var(--white);
-}
-
-.hero h2 {
-  color: var(--white);
-  opacity: 0.9;
-  margin-bottom: 2rem;
-}
-
-.hero-buttons {
-  margin-top: 2rem;
-}
-
-.hero-buttons .btn {
-  margin-right: 1rem;
-  margin-bottom: 1rem;
 }
 
 /* About Section */
