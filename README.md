@@ -1,6 +1,6 @@
 # 6ixStack Solutions Website
 
-A modern, responsive website for 6ixStack Solutions, a software solutions company specializing in small business technology consulting.
+A modern, responsive website for 6ixStack Solutions, a software solutions company specializing in small business technology consulting. Please contact admin@6ixstack.com for any queries.
 
 ## Site Status
 #### Prod Status
