@@ -24,8 +24,10 @@
   <main>
     <!-- Hero Section -->
     <section class="hero">
-      <div class="canvas-container">
-        <canvas id="heroCanvas"></canvas>
+      <div class="hero-carousel">
+        <div class="carousel-slide"></div>
+        <div class="carousel-slide"></div>
+        <div class="carousel-slide"></div>
       </div>
       <div class="hero-content container">
         <h1 class="display-1" data-aos="fade-up">6ixStack <span class="text-primary">Solutions</span></h1>
@@ -436,8 +438,13 @@
 
       // Rotate slides every 5 seconds
       setInterval(() => {
+        // Hide current slide
         slides[currentSlide].classList.remove('active');
+        
+        // Move to next slide
         currentSlide = (currentSlide + 1) % slides.length;
+        
+        // Show new slide
         slides[currentSlide].classList.add('active');
       }, 5000);
     }
