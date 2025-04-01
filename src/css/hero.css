@@ -6,6 +6,20 @@
   overflow: hidden;
   color: var(--white);
   position: relative;
+  background-color: var(--secondary-color);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/images/pattern.png');
+  background-repeat: repeat;
+  opacity: 0.1;
+  z-index: 0;
 }
 
 .hero-carousel {
@@ -26,21 +40,109 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  opacity: 1;
-  transform: translateX(100%);
-  transition: transform 20s linear;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+
+.carousel-slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.carousel-slide:nth-child(1) {
+  background-image: url('../assets/images/homebackgrund/background1.png');
+}
+
+.carousel-slide:nth-child(2) {
+  background-image: url('../assets/images/homebackgrund/background2.png');
+}
+
+.carousel-slide:nth-child(3) {
+  background-image: url('../assets/images/homebackgrund/background3.png');
 }
 
 .carousel-slide.active {
-  transform: translateX(0);
-}
-
-.carousel-slide.moving-left {
-  transform: translateX(-100%);
+  opacity: 1;
 }
 
 .hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-container {
+  margin: 0 auto;
+}
+
+.hero-buttons {
+  width: 100%;
   max-width: 800px;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.hero-buttons .btn {
+  text-transform: lowercase;
+  font-weight: 500;
+  min-width: 150px;
+}
+
+.tagline {
+  position: relative;
+  z-index: 1;
+  margin-top: 2rem;
+  color: var(--white);
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.tagline p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .logo-container {
+    width: 45px;
+  }
+  
+  .hero-buttons {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .hero {
+    min-height: 500px;
+  }
+  
+  .logo-container {
+    width: 40px;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .hero-buttons .btn {
+    width: 100%;
+    max-width: 200px;
+  }
 } 

@@ -13,6 +13,8 @@
   <!-- Load CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/hero.css">
   <meta name="description" content="6ixStack Solutions provides innovative software solutions tailored for small businesses. Expert tech consulting at affordable prices.">
   
   <!-- Logo for Google Search -->
@@ -30,12 +32,18 @@
         <div class="carousel-slide"></div>
       </div>
       <div class="hero-content container">
-        <h1 class="display-1" data-aos="fade-up">6ixStack <span class="text-primary">Solutions</span></h1>
-        <h2 class="display-4" data-aos="fade-up" data-aos-delay="100">Tech Solutions That Work for Small Businesses</h2>
-        <p class="lead" data-aos="fade-up" data-aos-delay="200">We transform ideas into powerful solutions with cutting-edge technology.</p>
+        <div class="logo-container" data-aos="fade-up">
+          <img src="<%= require('./assets/images/logo.png') %>" alt="6ixStack Solutions Logo" style="
+          width: -webkit-fill-available;
+          height: -webkit-fill-available;
+      ">
+        </div>
         <div class="hero-buttons" data-aos="fade-up" data-aos-delay="300">
-          <a href="solutions.html" class="btn btn-primary btn-lg">Our Solutions</a>
-          <a href="contact.html" class="btn btn-outline-light btn-lg">Get in Touch</a>
+          <a href="solutions.html" class="btn btn-outline-light btn-lg">our solutions</a>
+          <a href="contact.html" class="btn btn-outline-light btn-lg">get in touch</a>
+        </div>
+        <div class="tagline" data-aos="fade-up" data-aos-delay="200">
+          <p>we make tech simple .</p>
         </div>
       </div>
     </section>
