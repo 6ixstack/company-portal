@@ -78,5 +78,10 @@ module.exports = {
       filename: 'thank-you.html',
       chunks: ['critical', 'main'],
     }),
+    new HtmlWebpackPlugin({
+      template: './src/privacy-policy.html',
+      filename: 'privacy-policy.html',
+      chunks: ['critical', 'main'],
+    }),
   ],
 };
