@@ -14,11 +14,70 @@
     .team-card {
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      flex-direction: column !important;
+      height: auto;
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
     }
     
     .team-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .team-image {
+      width: 100% !important;
+      height: 450px !important; /* Significantly increased height */
+      position: relative;
+      overflow: hidden;
+    }
+
+    .team-content {
+      width: 100% !important;
+      padding: 2rem !important;
+      text-align: center;
+      background: white;
+    }
+
+    .team-avatar {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .team-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center; /* Changed to center for better general composition */
+    }
+
+    .member-name {
+      font-size: 1.4rem !important;
+      margin-bottom: 0.5rem;
+      color: #FFA500; /* Orange color to match the "Product" heading */
+    }
+
+    .member-position {
+      font-size: 1rem !important;
+      color: #E91E63; /* Pink color to match the current style */
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 991.98px) {
+      .team-image {
+        height: 400px !important;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .col-lg-4 {
+        width: 100%;
+      }
+      .team-image {
+        height: 500px !important;
+      }
     }
 
     .modal {
@@ -62,23 +121,6 @@
       display: flex;
       align-items: center;
       margin-bottom: 1.5rem;
-    }
-
-    .team-avatar {
-      width: 80px;
-      height: 80px;
-      background-color: #f0f0f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 1rem;
-      overflow: hidden;
-    }
-
-    .team-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
     }
 
     .modal-avatar {
@@ -151,91 +193,93 @@
     <!-- Team Members -->
     <section class="team-members py-5 bg-light">
       <div class="container">
-        <div class="row g-4">
-          <!-- Mohaimen -->
-          <div class="col-lg-6" data-aos="fade-up">
-            <div class="team-card" onclick="openModal('mohaimen')">
-              <div class="team-image">
-                <div class="team-avatar">
-                  <img src="<%= require('./assets/images/mohaimenpicture.jpg') %>" alt="Mohaimen Khan">
+        <!-- Leadership Team -->
+        <div class="mb-5">
+          <h2 class="text-center mb-4" data-aos="fade-up">Product Team</h2>
+          <div class="row g-4">
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+              <div class="team-card" onclick="openModal('mahjabeen')">
+                <div class="team-image">
+                  <div class="team-avatar">
+                    <img src="<%= require('./assets/images/mahjabeenpicture.jpg') %>" alt="Mahjabeen Alam">
+                  </div>
+                </div>
+                <div class="team-content">
+                  <h2 class="member-name">Mahjabeen Alam</h2>
+                  <p class="member-position">Head of Product</p>
                 </div>
               </div>
-              <div class="team-content">
-                <h2 class="member-name">Mohaimen Khan</h2>
-                <p class="member-position">Co-Founder & Technical Lead</p>
+            </div>
+            <div class="col-lg-4" data-aos="fade-up">
+              <div class="team-card" onclick="openModal('sara')">
+                <div class="team-image">
+                  <div class="team-avatar">
+                    <img src="<%= require('./assets/images/sarapicture.jpg') %>" alt="Sara Farrukh Saeed">
+                  </div>
+                </div>
+                <div class="team-content">
+                  <h2 class="member-name">Sara Farrukh Saeed</h2>
+                  <p class="member-position">Head of Analytics</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="150">
+              <div class="team-card" onclick="openModal('rudra')">
+                <div class="team-image">
+                  <div class="team-avatar">
+                    <img src="<%= require('./assets/images/rudrapicture.jpeg') %>" alt="Rudra Patel">
+                  </div>
+                </div>
+                <div class="team-content">
+                  <h2 class="member-name">Rudra Patel</h2>
+                  <p class="member-position">Head of Strategy</p>
+                </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- Sara -->
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="team-card" onclick="openModal('sara')">
-              <div class="team-image">
-                <div class="team-avatar">
-                  <img src="<%= require('./assets/images/sarapicture.jpg') %>" alt="Sara Farrukh Saeed">
+        <!-- Engineering Team -->
+        <div class="mb-5">
+          <h2 class="text-center mb-4" data-aos="fade-up">Engineering Team</h2>
+          <div class="row g-4 justify-content-center">
+            <div class="col-lg-4" data-aos="fade-up">
+              <div class="team-card" onclick="openModal('mohaimen')">
+                <div class="team-image">
+                  <div class="team-avatar">
+                    <img src="<%= require('./assets/images/mohaimenpicture.jpg') %>" alt="Mohaimen Khan">
+                  </div>
                 </div>
-              </div>
-              <div class="team-content">
-                <h2 class="member-name">Sara Farrukh Saeed</h2>
-                <p class="member-position">Co-Founder & Data Science Lead</p>
+                <div class="team-content">
+                  <h2 class="member-name">Mohaimen Khan</h2>
+                  <p class="member-position">Full Stack & Machine Learning</p>
+                </div>
               </div>
             </div>
-          </div>
-
-          <!-- Mahjabeen -->
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="150">
-            <div class="team-card" onclick="openModal('mahjabeen')">
-              <div class="team-image">
-                <div class="team-avatar">
-                  <img src="<%= require('./assets/images/mahjabeenpicture.jpg') %>" alt="Mahjabeen Alam">
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+              <div class="team-card" onclick="openModal('moulik')">
+                <div class="team-image">
+                  <div class="team-avatar">
+                    <img src="<%= require('./assets/images/moulikpicture.jpg') %>" alt="Moulik Gaglani">
+                  </div>
                 </div>
-              </div>
-              <div class="team-content">
-                <h2 class="member-name">Mahjabeen Alam</h2>
-                <p class="member-position">Co-Founder & Head of Product</p>
+                <div class="team-content">
+                  <h2 class="member-name">Moulik Gaglani</h2>
+                  <p class="member-position">Cloud Ops & Security</p>
+                </div>
               </div>
             </div>
-          </div>
-
-          <!-- Rudra -->
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="team-card" onclick="openModal('rudra')">
-              <div class="team-image">
-                <div class="team-avatar">
-                  <img src="<%= require('./assets/images/rudrapicture.jpeg') %>" alt="Rudra Patel">
+            <div hidden class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+              <div class="team-card" onclick="openModal('huzaifa')">
+                <div class="team-image">
+                  <div class="team-avatar">
+                    <img src="<%= require('./assets/images/huzaifapicture.jpg') %>" alt="Huzaifa Galely">
+                  </div>
                 </div>
-              </div>
-              <div class="team-content">
-                <h2 class="member-name">Rudra Patel</h2>
-                <p class="member-position">Co-Founder & Business Strategy Lead</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6" data-aos="fade-up">
-            <div class="team-card" onclick="openModal('moulik')">
-              <div class="team-image">
-                <div class="team-avatar">
-                  <img src="<%= require('./assets/images/moulikpicture.jpg') %>" alt="Moulik Gaglani">
+                <div class="team-content">
+                  <h2 class="member-name">Huzaifa Galely</h2>
+                  <p class="member-position">Technical Lead - Backend Solutions</p>
                 </div>
-              </div>
-              <div class="team-content">
-                <h2 class="member-name">Moulik Gaglani</h2>
-                <p class="member-position">Co-Founder & Technical Lead</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6" data-aos="fade-up">
-            <div class="team-card" onclick="openModal('huzaifa')">
-              <div class="team-image">
-                <div class="team-avatar">
-                  <img src="<%= require('./assets/images/huzaifapicture.jpg') %>" alt="Huzaifa Galely">
-                </div>
-              </div>
-              <div class="team-content">
-                <h2 class="member-name">Huzaifa Galely</h2>
-                <p class="member-position">Co-Founder & Technical Lead</p>
               </div>
             </div>
           </div>
@@ -299,7 +343,7 @@
         </div>
         <div class="modal-title">
           <h2>Mohaimen Hasan</h2>
-          <p>Co-Founder & Technical Lead</p>
+          <p>Technical Lead</p>
         </div>
       </div>
       <div class="modal-body">
@@ -320,7 +364,7 @@
         </div>
         <div class="modal-title">
           <h2>Sara Farrukh Saeed</h2>
-          <p>Co-Founder & Data Science Lead</p>
+          <p>Data Science Lead</p>
         </div>
       </div>
       <div class="modal-body">
@@ -341,7 +385,7 @@
         </div>
         <div class="modal-title">
           <h2>Mahjabeen Alam</h2>
-          <p>Co-Founder & Product Lead</p>
+          <p>Product Lead</p>
         </div>
       </div>
       <div class="modal-body">
@@ -362,7 +406,7 @@
         </div>
         <div class="modal-title">
           <h2>Rudra Patel</h2>
-          <p>Co-Founder & Business Strategy Lead</p>
+          <p>Business Strategy Lead</p>
         </div>
       </div>
       <div class="modal-body">
@@ -383,7 +427,7 @@
         </div>
         <div class="modal-title">
           <h2>Moulik Gaglani</h2>
-          <p>Co-Founder & Technical Lead</p>
+          <p>Technical Lead</p>
         </div>
       </div>
       <div class="modal-body">
@@ -395,7 +439,7 @@
     </div>
   </div>
 
-  <div id="huzaifa-modal" class="modal">
+  <div hidden id="huzaifa-modal" class="modal">
     <div class="modal-content">
       <span class="close-modal" onclick="closeModal('huzaifa')">&times;</span>
       <div class="modal-header">
@@ -404,7 +448,7 @@
         </div>
         <div class="modal-title">
           <h2>Huzaifa Galely</h2>
-          <p>Co-Founder & Technical Lead</p>
+          <p>Technical Lead</p>
         </div>
       </div>
       <div class="modal-body">
