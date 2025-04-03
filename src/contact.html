@@ -402,12 +402,14 @@
       pointer-events: auto;
       -webkit-appearance: none;
       box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-      margin-top: -11px; /* Adjust vertical alignment */
+      margin-top: -11px;
       position: relative;
       cursor: pointer;
       /* Water bubble appearance */
       background-image: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.3) 2px, transparent 40%);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      /* Add pointing triangle */
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
     }
     
     input[type="range"]::-webkit-slider-thumb:hover {
@@ -432,6 +434,8 @@
       /* Water bubble appearance */
       background-image: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.3) 2px, transparent 40%);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      /* Add pointing triangle */
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
     }
     
     input[type="range"]::-moz-range-thumb:hover {
