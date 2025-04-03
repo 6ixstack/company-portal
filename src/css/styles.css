@@ -192,7 +192,7 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 9999;
   transition: var(--transition);
   background-color: var(--white);
   box-shadow: var(--shadow);
@@ -1354,11 +1354,11 @@ footer {
     width: calc(100% - 30px);
     max-height: calc(100vh - 100px);
     overflow-y: auto;
-    position: absolute;
+    position: fixed;
     top: 70px;
     left: 15px;
     right: 15px;
-    z-index: 1000;
+    z-index: 10000;
   }
   
   .nav-link {
@@ -1542,7 +1542,7 @@ footer {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
-  z-index: 1000;
+  z-index: 9998;
   justify-content: center;
   align-items: center;
   padding: 1rem;
@@ -1558,6 +1558,7 @@ footer {
   overflow-y: auto;
   position: relative;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  z-index: 9998;
 }
 
 .close-modal {
