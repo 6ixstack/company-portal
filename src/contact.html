@@ -678,7 +678,7 @@
                     <div class="price-input">
                       <div class="field">
                         <span>$</span>
-                        <input type="text" id="budget-min" value="5000" readonly>
+                        <input type="text" id="budget-min" value="1000" readonly>
                       </div>
                       <div class="field">
                         <span>to $</span>
@@ -689,10 +689,10 @@
                       <div class="progress"></div>
                     </div>
                     <div class="range-input">
-                      <input type="range" id="budget-range" class="range-min" min="5000" max="100000" value="25000" step="1000">
+                      <input type="range" id="budget-range" class="range-min" min="1000" max="100000" value="25000" step="1000">
                     </div>
                     <div class="budget-labels">
-                      <span>$5K</span>
+                      <span>$1K</span>
                       <span>$25K</span>
                       <span>$50K</span>
                       <span>$75K</span>
@@ -997,11 +997,11 @@
         const value = rangeInput.value;
         
         // Calculate percentage for progress bar
-        const percent = ((value - 5000) / (100000 - 5000)) * 100;
+        const percent = ((value - 1000) / (100000 - 1000)) * 100;
         progress.style.right = 100 - percent + '%';
         
         // Format values for display
-        const minFormatted = new Intl.NumberFormat('en-US').format(5000);
+        const minFormatted = new Intl.NumberFormat('en-US').format(1000);
         const maxFormatted = new Intl.NumberFormat('en-US').format(value);
         
         budgetMin.value = minFormatted;
@@ -1012,7 +1012,7 @@
       // Initialize slider position
       window.addEventListener('load', () => {
         const initialValue = rangeInput.value;
-        const percent = ((initialValue - 5000) / (100000 - 5000)) * 100;
+        const percent = ((initialValue - 1000) / (100000 - 1000)) * 100;
         progress.style.right = 100 - percent + '%';
       });
       
