@@ -163,6 +163,23 @@ const initHeroCanvas = () => {
     canvasContainer.remove();
   }
   
+  // Create hero content first
+  const heroContent = heroSection.querySelector('.hero-content');
+  heroContent.innerHTML = `
+    <div class="hero-center-content">
+      <img src="${logoImage}" alt="6ixStack Solutions Logo" class="logo" loading="eager">
+      <h2 class="tagline">We make tech simple</h2>
+      <div class="hero-buttons">
+        <a href="solutions.html" class="btn btn-primary btn-lg">Our Solutions</a>
+        <a href="contact.html" class="btn btn-outline-light btn-lg">Get in Touch</a>
+      </div>
+    </div>
+  `;
+  
+  // Set position for hero content
+  heroContent.style.position = 'relative';
+  heroContent.style.zIndex = '2';
+  
   // Create carousel container
   const carouselContainer = document.createElement('div');
   carouselContainer.className = 'carousel-container';
@@ -173,8 +190,6 @@ const initHeroCanvas = () => {
   carouselContainer.style.height = '100%';
   carouselContainer.style.zIndex = '1';
   carouselContainer.style.overflow = 'hidden';
-  
-  // No overlay - removed as requested
   
   // Create carousel slides with background images
   const backgroundImages = [background1, background2, background3];
@@ -194,31 +209,8 @@ const initHeroCanvas = () => {
     carouselContainer.appendChild(slide);
   });
   
-  // Insert carousel container before hero content
-  const heroContent = heroSection.querySelector('.hero-content');
-  heroSection.insertBefore(carouselContainer, heroContent);
-  
-  // Set up the hero content based on website-design.png
-  heroContent.innerHTML = `
-    <div class="hero-center-content">
-      <img src="${logoImage}" alt="6ixStack Solutions Logo" class="logo">
-      <h2 class="tagline">We make tech simple</h2>
-      <div class="hero-buttons">
-        <a href="solutions.html" class="btn btn-primary btn-lg">Our Solutions</a>
-        <a href="contact.html" class="btn btn-outline-light btn-lg">Get in Touch</a>
-      </div>
-    </div>
-  `;
-  
-  // Make sure the image gets loaded properly
-  const logoImg = heroContent.querySelector('.logo');
-  logoImg.onload = () => {
-    console.log('Logo loaded with dimensions:', logoImg.width, 'x', logoImg.height);
-  };
-  
-  // Set position for hero content
-  heroContent.style.position = 'relative';
-  heroContent.style.zIndex = '2';
+  // Insert carousel container after hero content
+  heroSection.appendChild(carouselContainer);
   
   // Add styles for the centered content
   const style = document.createElement('style');
@@ -239,6 +231,8 @@ const initHeroCanvas = () => {
       height: auto;
       margin-bottom: 2rem;
       display: block;
+      opacity: 1;
+      transition: opacity 0.3s ease-in-out;
     }
     .hero-center-content .tagline {
       font-size: 2rem;
@@ -249,71 +243,9 @@ const initHeroCanvas = () => {
     }
     .hero-buttons {
       display: flex;
-      gap: 1.8rem;
+      gap: 1rem;
       justify-content: center;
-      width: 100%;
-      max-width: 600px;
-    }
-    .hero-buttons .btn {
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      flex: 1;
-      min-width: 200px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      border-radius: 50px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-    .hero-buttons .btn:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    }
-    @media (max-width: 992px) {
-      .hero-center-content .logo {
-        max-width: 420px;
-      }
-      .hero-center-content .tagline {
-        font-size: 2.5rem;
-      }
-    }
-    @media (max-width: 768px) {
-      .hero-center-content {
-        margin-top: 60px;
-      }
-      .hero-center-content .logo {
-        max-width: 350px;
-      }
-      .hero-center-content .tagline {
-        font-size: 2.2rem;
-        margin-bottom: 2rem;
-      }
-      .hero-buttons {
-        gap: 1rem;
-      }
-      .hero-buttons .btn {
-        padding: 0.8rem 1.5rem;
-        min-width: 160px;
-      }
-    }
-    @media (max-width: 576px) {
-      .hero-center-content .logo {
-        max-width: 300px;
-        margin-bottom: 1.5rem;
-      }
-      .hero-center-content .tagline {
-        font-size: 1.8rem;
-        margin-bottom: 1.5rem;
-      }
-      .hero-buttons {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: center;
-      }
-      .hero-buttons .btn {
-        width: 100%;
-        max-width: 250px;
-      }
+      flex-wrap: wrap;
     }
   `;
   document.head.appendChild(style);
