@@ -114,9 +114,51 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--primary-color);
 }
 
+/* Solutions page specific section title alignment */
+.solutions-overview .section-title:after,
+.solutions-hero .section-title:after,
+.approach .section-title:after,
+.cta .section-title:after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .text-center .section-title:after {
   left: 50%;
   transform: translateX(-50%);
+}
+
+/* New class for index page section titles - always centered */
+.index-section-title {
+  position: relative;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.index-section-title:after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 60px;
+  height: 4px;
+  background-color: var(--primary-color);
+  transform: translateX(-50%);
+}
+
+/* Center section titles on smaller screens */
+@media (max-width: 991.98px) {
+  .section-title {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .section-title:after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 a {
@@ -308,6 +350,7 @@ header {
   background-color: var(--secondary-color);
   overflow: hidden;
   color: var(--white);
+  padding-top: 80px; /* Added padding to prevent navbar overlap */
 }
 
 /* 6ix Stack Interactive Section */
@@ -633,6 +676,7 @@ header {
 }
 
 .text-section {
+  text-align: center;
   flex: 1 1 600px;
   padding-right: 2rem;
 }
@@ -775,6 +819,41 @@ header {
 
 .why-us-item p {
   padding-left: 2.3rem;
+}
+
+/* Add responsive alignment for Why Choose Us section */
+@media (min-width: 992px) {
+  .why-us .section-title {
+    text-align: left;
+  }
+  
+  .why-us .section-title:after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .why-us-item {
+    text-align: left;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .why-us .section-title {
+    text-align: center;
+  }
+  
+  .why-us .section-title:after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .why-us-item {
+    text-align: center;
+  }
+  
+  .why-us-item h3 {
+    justify-content: center;
+  }
 }
 
 /* Testimonials Section */

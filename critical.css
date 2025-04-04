@@ -49,6 +49,7 @@ header {
   align-items: center;
   background-color: var(--secondary-color);
   color: var(--white);
+  padding-top: 80px;
 }
 
 .hero h1 {
@@ -56,6 +57,25 @@ header {
   font-weight: 800;
   color: var(--white);
   margin-bottom: 1rem;
+}
+
+/* Index page section titles - always centered */
+.index-section-title {
+  position: relative;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.index-section-title:after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 60px;
+  height: 4px;
+  background-color: var(--primary-color);
+  transform: translateX(-50%);
 }
 
 /* Hide content until CSS is loaded */
