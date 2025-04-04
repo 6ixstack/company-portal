@@ -240,6 +240,14 @@ const initHeroCanvas = () => {
       font-weight: 700;
       text-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
+    
+    /* Responsive font size for smaller screens */
+    @media (max-width: 400px) {
+      .hero-center-content .tagline {
+        font-size: 2rem;
+      }
+    }
+    
     .hero-buttons {
       display: flex;
       gap: 1rem;
