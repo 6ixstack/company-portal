@@ -46,6 +46,7 @@ header {
   align-items: center;
   background-color: var(--secondary-color);
   color: var(--white);
+  padding-top: 80px;
 }
 
 .hero h1 {

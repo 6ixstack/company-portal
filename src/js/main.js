@@ -204,6 +204,8 @@ const initHeroCanvas = () => {
     slide.style.backgroundImage = `url(${image})`;
     slide.style.backgroundSize = 'cover';
     slide.style.backgroundPosition = 'center';
+    slide.style.backgroundRepeat = 'no-repeat';
+    slide.style.backgroundColor = '#FDB414';
     slide.style.opacity = index === 0 ? '1' : '0';
     slide.style.transition = 'opacity 1.5s ease-in-out';
     carouselContainer.appendChild(slide);
@@ -223,6 +225,7 @@ const initHeroCanvas = () => {
       text-align: center;
       width: 100%;
       padding: 0 20px;
+      margin-top: 60px;
     }
     .hero-center-content .logo {
       width: 100%;
@@ -239,6 +242,19 @@ const initHeroCanvas = () => {
       margin-bottom: 2rem;
       font-weight: 700;
       text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    
+    /* Responsive adjustments for background images */
+    @media (min-width: 1350px) {
+      .carousel-slide {
+        background-size: contain !important;
+      }
+    }
+    
+    @media (max-width: 1349.98px) {
+      .carousel-slide {
+        background-size: cover !important;
+      }
     }
     
     /* Responsive font size for smaller screens */

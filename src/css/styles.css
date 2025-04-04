@@ -313,6 +313,7 @@ header {
   background-color: var(--secondary-color);
   overflow: hidden;
   color: var(--white);
+  padding-top: 80px; /* Added padding to prevent navbar overlap */
 }
 
 /* 6ix Stack Interactive Section */
