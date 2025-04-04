@@ -8,7 +8,6 @@ Thank you for your interest in contributing! Please follow the workflow outlined
 
 Our deployment pipeline includes:
 - **Preview Deploys** for all pull requests via Netlify
-- A **Pre-Production** environment for staging/QA
 - A protected **Production** environment served via GitHub Pages
 
 ---
@@ -16,26 +15,26 @@ Our deployment pipeline includes:
 ## 🛠️ Step-by-Step Contribution Process
 
 ### 1. Fork and Create a Feature Branch
-Create your feature or bugfix branch off of `preprod`:
+Create your feature or bugfix branch off of `main`:
 
 ```bash
-git checkout -b user/yourname/feature-name preprod
+git checkout -b user/yourname/feature-name main
 ```
 
-> 🔒 You **cannot** push directly to `preprod` or `main`. All changes must go through pull requests.
+> 🔒 You **cannot** push directly to `main`. All changes must go through pull requests.
 
 ---
 
 ### 2. Open a Pull Request to `preprod`
 
-- Set the base branch to `preprod`
+- Set the base branch to `main`
 - Your PR will automatically get a **Netlify Deploy Preview** link from the Netlify bot (e.g., `https://deploy-preview-123--your-site.netlify.app`)
 - Review and test your changes using this deploy preview
+ 
+✅ You **can merge** your PR into `main` yourself once you've tested the deploy preview
+✅ You **can merge** your PR into `main` after you got the approvals
 
-✅ You **do not need approval** to merge into `preprod`  
-✅ You **can merge** your PR into `preprod` yourself once you've tested the deploy preview
-
----
+--- (N/A for now)
 
 ### 3. Test on Pre-Production
 
@@ -51,7 +50,7 @@ Please do a final test here to ensure everything works correctly in the integrat
 
 Once you're confident in your changes:
 
-- Open a new PR from `preprod` → `main`
+- Open a new PR from `your/branch` → `main`
 - This PR **must receive at least one approval** before it can be merged
 - Direct PRs to `main` from any other branch are **not allowed and will be automatically blocked**
 
@@ -61,9 +60,7 @@ Once you're confident in your changes:
 
 | Branch      | Purpose            | Merge Rules                      | Deploy Location |
 |-------------|--------------------|----------------------------------|-----------------|
-| `preprod`   | Staging / QA       | No approval required             | [Pre-Prod Site](https://effervescent-licorice-a3c4ff.netlify.app) |
 | `main`      | Production         | ✅ Requires at least **1 approval** | GitHub Pages + Custom Domain |
-| PRs → `main`| Production Release | ❌ Must come **only from `preprod`** | — |
 
 ---
 
