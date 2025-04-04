@@ -89,17 +89,39 @@ h1, h2, h3, h4, h5, h6 {
 .section-title:after {
   content: '';
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
   bottom: -10px;
   width: 60px;
   height: 4px;
   background-color: var(--primary-color);
 }
 
+/* Solutions page specific section title alignment */
+.solutions-overview .section-title:after,
+.solutions-hero .section-title:after,
+.approach .section-title:after,
+.cta .section-title:after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .text-center .section-title:after {
   left: 50%;
   transform: translateX(-50%);
+}
+
+/* Center section titles on smaller screens */
+@media (max-width: 991.98px) {
+  .section-title {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .section-title:after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 a {
@@ -768,8 +790,8 @@ header {
   }
   
   .why-us .section-title:after {
-    left: 0;
-    transform: none;
+    left: 50%;
+    transform: translateX(-50%);
   }
   
   .why-us-item {
