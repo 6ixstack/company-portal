@@ -3,6 +3,9 @@ import * as THREE from 'three';
 import { gsap } from 'gsap';
 import AOS from 'aos';
 import logoImage from '../assets/images/logo.png';
+import background1 from '../assets/images/homebackground/background1.png';
+import background2 from '../assets/images/homebackground/background2.png';
+import background3 from '../assets/images/homebackground/background3.png';
 import './css-loader';
 
 // Initialize AOS library for scroll animations
@@ -149,97 +152,116 @@ const initFooter = () => {
   });
 };
 
-// Initialize hero canvas animation
+// Initialize hero carousel and design
 const initHeroCanvas = () => {
-  const canvas = document.getElementById('hero-canvas');
-  if (!canvas) return;
+  const heroSection = document.querySelector('.hero');
+  if (!heroSection) return;
   
-  const renderer = new THREE.WebGLRenderer({
-    canvas,
-    antialias: true,
-    alpha: true
-  });
-  
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-  camera.position.z = 5;
-  
-  // Create particles
-  const particlesGeometry = new THREE.BufferGeometry();
-  const particlesCount = 1000;
-  
-  const positions = new Float32Array(particlesCount * 3);
-  const colors = new Float32Array(particlesCount * 3);
-  
-  const colorOptions = [
-    new THREE.Color('#D3367A'), // Primary color (Pink)
-    new THREE.Color('#FBAD18'), // Secondary color (Yellow)
-    new THREE.Color('#E34B8A'), // Light pink
-  ];
-  
-  for (let i = 0; i < particlesCount; i++) {
-    // Position
-    positions[i * 3] = (Math.random() - 0.5) * 10; // x
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 10; // y
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 10; // z
-    
-    // Color
-    const color = colorOptions[Math.floor(Math.random() * colorOptions.length)];
-    colors[i * 3] = color.r;
-    colors[i * 3 + 1] = color.g;
-    colors[i * 3 + 2] = color.b;
+  // Remove the existing canvas and canvas container
+  const canvasContainer = heroSection.querySelector('.canvas-container');
+  if (canvasContainer) {
+    canvasContainer.remove();
   }
   
-  particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  // Create hero content first
+  const heroContent = heroSection.querySelector('.hero-content');
+  heroContent.innerHTML = `
+    <div class="hero-center-content">
+      <img src="${logoImage}" alt="6ixStack Solutions Logo" class="logo" loading="eager">
+      <h2 class="tagline">We make tech simple</h2>
+      <div class="hero-buttons">
+        <a href="solutions.html" class="btn btn-primary btn-lg">Our Solutions</a>
+        <a href="contact.html" class="btn btn-outline-light btn-lg">Get in Touch</a>
+      </div>
+    </div>
+  `;
   
-  const particlesMaterial = new THREE.PointsMaterial({
-    size: 0.05,
-    vertexColors: true,
-    transparent: true,
-    opacity: 0.8,
+  // Set position for hero content
+  heroContent.style.position = 'relative';
+  heroContent.style.zIndex = '2';
+  
+  // Create carousel container
+  const carouselContainer = document.createElement('div');
+  carouselContainer.className = 'carousel-container';
+  carouselContainer.style.position = 'absolute';
+  carouselContainer.style.top = '0';
+  carouselContainer.style.left = '0';
+  carouselContainer.style.width = '100%';
+  carouselContainer.style.height = '100%';
+  carouselContainer.style.zIndex = '1';
+  carouselContainer.style.overflow = 'hidden';
+  
+  // Create carousel slides with background images
+  const backgroundImages = [background1, background2, background3];
+  backgroundImages.forEach((image, index) => {
+    const slide = document.createElement('div');
+    slide.className = `carousel-slide ${index === 0 ? 'active' : ''}`;
+    slide.style.position = 'absolute';
+    slide.style.top = '0';
+    slide.style.left = '0';
+    slide.style.width = '100%';
+    slide.style.height = '100%';
+    slide.style.backgroundImage = `url(${image})`;
+    slide.style.backgroundSize = 'cover';
+    slide.style.backgroundPosition = 'center';
+    slide.style.opacity = index === 0 ? '1' : '0';
+    slide.style.transition = 'opacity 1.5s ease-in-out';
+    carouselContainer.appendChild(slide);
   });
   
-  const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-  scene.add(particles);
+  // Insert carousel container after hero content
+  heroSection.appendChild(carouselContainer);
   
-  // Resize handler
-  const handleResize = () => {
-    const parent = canvas.parentElement;
-    const width = parent.clientWidth;
-    const height = parent.clientHeight;
-    
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-    
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  };
-  
-  window.addEventListener('resize', handleResize);
-  handleResize();
-  
-  // Animation loop
-  const animate = () => {
-    requestAnimationFrame(animate);
-    
-    particles.rotation.x += 0.0005;
-    particles.rotation.y += 0.001;
-    
-    // Mouse effect
-    const positions = particlesGeometry.attributes.position.array;
-    
-    for (let i = 0; i < particlesCount; i++) {
-      const i3 = i * 3;
-      positions[i3 + 1] += Math.sin(Date.now() * 0.001 + i * 0.1) * 0.002;
+  // Add styles for the centered content
+  const style = document.createElement('style');
+  style.textContent = `
+    .hero-center-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+      padding: 0 20px;
+      margin-top: 80px; /* Account for fixed header */
     }
-    
-    particlesGeometry.attributes.position.needsUpdate = true;
-    
-    renderer.render(scene, camera);
+    .hero-center-content .logo {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      margin-bottom: 2rem;
+      display: block;
+      opacity: 1;
+      transition: opacity 0.3s ease-in-out;
+    }
+    .hero-center-content .tagline {
+      font-size: 2rem;
+      color: white;
+      margin-bottom: 2.5rem;
+      font-weight: 700;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  `;
+  document.head.appendChild(style);
+  
+  // Set up carousel auto-rotation
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.carousel-slide');
+  
+  const rotateCarousel = () => {
+    slides[currentSlide].style.opacity = '0';
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].style.opacity = '1';
   };
   
-  animate();
+  // Start carousel rotation
+  setInterval(rotateCarousel, 5000);
 };
 
 // Initialize animations for various sections
