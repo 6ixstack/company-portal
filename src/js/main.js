@@ -224,18 +224,19 @@ const initHeroCanvas = () => {
       justify-content: center;
       text-align: center;
       width: 100%;
-      padding: 0 20px;
-      margin-top: 60px;
+      padding: 2rem 20px;
+      min-height: calc(100vh - 80px);
     }
+
     .hero-center-content .logo {
       width: 100%;
       max-width: 500px;
       height: auto;
-      margin-bottom: 0rem;
       display: block;
       opacity: 1;
       transition: opacity 0.3s ease-in-out;
     }
+
     .hero-center-content .tagline {
       font-size: 3rem;
       color: white;
@@ -244,31 +245,38 @@ const initHeroCanvas = () => {
       text-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
     
-    /* Responsive adjustments for background images */
-    @media (min-width: 1350px) {
-      .carousel-slide {
-        background-size: contain !important;
-      }
-    }
-    
-    @media (max-width: 1349.98px) {
-      .carousel-slide {
-        background-size: cover !important;
-      }
-    }
-    
-    /* Responsive font size for smaller screens */
-    @media (max-width: 400px) {
-      .hero-center-content .tagline {
-        font-size: 2rem;
-      }
-    }
-    
     .hero-buttons {
       display: flex;
       gap: 1rem;
       justify-content: center;
       flex-wrap: wrap;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 3;
+    }
+    
+    @media (max-height: 845px) {
+      .hero {
+        height: auto !important;
+        min-height: auto !important;
+      }
+      
+      .hero-center-content {
+        min-height: auto;
+        padding: 40px 20px;
+      }
+      
+      .hero-buttons {
+        margin-top: 2rem;
+        margin-bottom: 3rem;
+      }
+    }
+    
+    @media (max-width: 400px) {
+      .hero-center-content .tagline {
+        font-size: 2rem;
+      }
     }
   `;
   document.head.appendChild(style);
