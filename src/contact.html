@@ -10,6 +10,496 @@
   
   <!-- Logo for Google Search -->
   <meta property="og:image" content="<%= require('./assets/images/logo.png') %>">
+  
+  <style>
+    /* Interactive Form Styles */
+    .form-progress {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    
+    .progress-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      padding: 0 1.5rem;
+    }
+    
+    .progress-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 25px;
+      right: -50%;
+      width: 100%;
+      height: 2px;
+      background-color: var(--gray-300);
+      z-index: 1;
+    }
+    
+    .progress-step.active:not(:last-child)::after,
+    .progress-step.completed:not(:last-child)::after {
+      background-color: var(--primary-color);
+    }
+    
+    .step-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--gray-300);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      position: relative;
+      z-index: 2;
+      transition: all 0.3s ease;
+      font-size: 1.5rem;
+    }
+    
+    .progress-step.active .step-icon,
+    .progress-step.completed .step-icon {
+      background-color: var(--primary-color);
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(211, 54, 122, 0.3);
+    }
+    
+    .progress-step.completed .step-icon {
+      background-color: var(--secondary-color);
+    }
+    
+    .step-label {
+      font-size: 0.85rem;
+      color: var(--gray-600);
+      font-weight: 500;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .progress-step.active .step-label,
+    .progress-step.completed .step-label {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+    
+    .progress-step.completed .step-label {
+      color: var(--secondary-color);
+    }
+    
+    .form-step {
+      display: none;
+      animation: fadeIn 0.5s;
+    }
+    
+    .form-step.active {
+      display: block;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .form-navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+    
+    .category-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .category-card {
+      background-color: var(--white);
+      border: 2px solid var(--gray-300);
+      border-radius: 15px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+    
+    .category-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      border-color: var(--primary-color);
+    }
+    
+    .category-card.selected {
+      border-color: var(--primary-color);
+      box-shadow: 0 10px 20px rgba(211, 54, 122, 0.2);
+      background-color: rgba(211, 54, 122, 0.05);
+    }
+    
+    .category-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      transition: all 0.3s ease;
+    }
+    
+    .category-card:hover .category-icon,
+    .category-card.selected .category-icon {
+      transform: scale(1.1);
+    }
+    
+    .category-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--secondary-color);
+    }
+    
+    .category-description {
+      color: var(--gray-600);
+      font-size: 0.9rem;
+      margin-bottom: 0;
+    }
+    
+    .priority-options {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      gap: 1rem;
+    }
+    
+    .priority-option {
+      flex: 1;
+      background-color: var(--white);
+      border: 2px solid var(--gray-300);
+      border-radius: 15px;
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .priority-option:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .priority-option.selected {
+      border-color: var(--primary-color);
+      box-shadow: 0 10px 20px rgba(211, 54, 122, 0.2);
+      background-color: rgba(211, 54, 122, 0.05);
+    }
+    
+    .priority-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .priority-option:hover .priority-icon,
+    .priority-option.selected .priority-icon {
+      transform: scale(1.1);
+    }
+    
+    .low-priority .priority-icon {
+      color: #4CAF50;
+    }
+    
+    .medium-priority .priority-icon {
+      color: #FF9800;
+    }
+    
+    .high-priority .priority-icon {
+      color: #F44336;
+    }
+    
+    .priority-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .priority-description {
+      color: var(--gray-600);
+      font-size: 0.9rem;
+      margin-bottom: 0;
+    }
+    
+    /* Responsive styles for the forms */
+    @media (max-width: 768px) {
+      .form-progress {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .progress-step {
+        margin-bottom: 1rem;
+        padding: 0 1rem;
+      }
+      
+      .progress-step:not(:last-child)::after {
+        width: 50%;
+        right: -25%;
+      }
+      
+      .category-cards {
+        grid-template-columns: 1fr;
+      }
+      
+      .priority-options {
+        flex-direction: column;
+      }
+      
+      .step-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+      }
+      
+      .progress-step:not(:last-child)::after {
+        top: 20px;
+      }
+    }
+    
+    /* Summary styles */
+    .summary-card {
+      background-color: var(--gray-100);
+      border-radius: 15px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .summary-item {
+      display: flex;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--gray-300);
+    }
+    
+    .summary-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    
+    .summary-icon {
+      width: 40px;
+      height: 40px;
+      background-color: rgba(211, 54, 122, 0.1);
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin-right: 1rem;
+    }
+    
+    .summary-content {
+      flex: 1;
+    }
+    
+    .summary-label {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--gray-700);
+    }
+    
+    .summary-value {
+      color: var(--primary-color);
+      font-weight: 500;
+    }
+    
+    .summary-edit {
+      color: var(--primary-color);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .summary-edit:hover {
+      transform: scale(1.1);
+    }
+    
+    .success-message {
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .success-icon {
+      font-size: 5rem;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      display: inline-block;
+      animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
+    .success-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--secondary-color);
+    }
+    
+    .success-message p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+    
+    /* Budget range styling */
+    .budget-slider {
+      width: 100%;
+      margin: 2rem 0;
+    }
+    
+    .range-slider {
+      position: relative;
+      width: 100%;
+      height: 6px;
+      background-color: var(--gray-300);
+      border-radius: 8px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    .range-slider .progress {
+      position: absolute;
+      left: 0%;
+      right: 75%;
+      height: 100%;
+      background: linear-gradient(to right, var(--primary-color), var(--primary-light));
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      box-shadow: 0 1px 3px rgba(211, 54, 122, 0.3);
+    }
+    
+    .range-input {
+      position: relative;
+    }
+    
+    .range-input input {
+      top: -10px;
+      height: 25px;
+      width: 100%;
+      background: none;
+      pointer-events: auto;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      cursor: pointer;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+      height: 28px;
+      width: 28px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      border: 2px solid white;
+      pointer-events: auto;
+      -webkit-appearance: none;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+      margin-top: -11px;
+      position: relative;
+      cursor: pointer;
+      /* Water bubble appearance */
+      background-image: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.3) 2px, transparent 40%);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      /* Add pointing triangle */
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+    
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(211, 54, 122, 0.5);
+    }
+    
+    input[type="range"]::-webkit-slider-thumb:active {
+      transform: scale(0.95);
+    }
+    
+    input[type="range"]::-moz-range-thumb {
+      height: 28px;
+      width: 28px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      border: 2px solid white;
+      pointer-events: auto;
+      -moz-appearance: none;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      /* Water bubble appearance */
+      background-image: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.3) 2px, transparent 40%);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      /* Add pointing triangle */
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+    
+    input[type="range"]::-moz-range-thumb:hover {
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(211, 54, 122, 0.5);
+    }
+    
+    input[type="range"]::-moz-range-thumb:active {
+      transform: scale(0.95);
+    }
+    
+    .price-input {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    
+    .field {
+      display: flex;
+      align-items: center;
+      height: 45px;
+    }
+    
+    .field span {
+      margin-right: 0.5rem;
+      font-weight: 500;
+    }
+    
+    .field input {
+      width: 100px;
+      height: 40px;
+      border-radius: 5px;
+      border: 1px solid var(--gray-300);
+      padding: 0 1rem;
+      font-weight: 500;
+    }
+    
+    .budget-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+    }
+    
+    .budget-labels span {
+      font-size: 0.8rem;
+      color: var(--gray-600);
+    }
+    
+    /* Form validation styles */
+    .validation-error {
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+    }
+    
+    .is-invalid {
+      border-color: #dc3545 !important;
+      box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+    }
+    
+    /* Style for checkbox error */
+    .form-check.has-error .form-check-label {
+      color: #dc3545;
+    }
+  </style>
 </head>
 <body>
   <header id="header"></header>
@@ -19,74 +509,344 @@
     <section class="contact-hero">
       <div class="container text-center">
         <h1 class="display-1" data-aos="fade-up">Contact Us</h1>
-        <p class="lead" data-aos="fade-up" data-aos-delay="100">We're eager to hear about your business challenges and how we can help</p>
+        <p class="lead" data-aos="fade-up" data-aos-delay="100">We're eager to help with your business challenges</p>
       </div>
     </section>
 
-    <!-- Contact Form Section -->
+    <!-- Interactive Contact Form Section -->
     <section class="contact-form-section py-5">
       <div class="container">
         <!-- Get In Touch Section (Centered) -->
         <div class="row justify-content-center mb-5">
-          <div class="col-lg-8 text-center" data-aos="fade-up">
-            <h2 class="section-title">Get In Touch</h2>
-            <p class="lead">We're eager to hear about your business challenges and how we can help.</p>
-            <p>Fill out the form below, and one of our consultants will reach out to schedule a free initial consultation.</p>
-              <form action="https://formsubmit.co/admin@6ixstack.com" method="POST">
-                <input type="hidden" name="_subject" value="New 6ixStack Client Contact Submission">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_next" value="https://www.6ixstack.com/thank-you.html">
-                <input type="hidden" name="_autoresponse" value="Thank you for contacting 6ixStack Solutions. We have received your message and will get back to you within 24 hours.">
-                <input type="hidden" name="_cc" value="mohaimenhasan@gmail.com">
-                <div class="mb-3">
-                  <label for="name" class="form-label">Full Name*</label>
-                  <input type="text" class="form-control" id="name" name="name" required>
+          <div class="col-lg-10 text-center" data-aos="fade-up">
+            <h2 class="section-title">How Can We Help?</h2>
+            <p class="lead">Let's find the perfect solution for your business needs.</p>
+            
+            <!-- Form Progress Bar -->
+            <div class="form-progress mt-5 mb-4">
+              <div class="progress-step active" data-step="1">
+                <div class="step-icon">
+                  <i class="fas fa-lightbulb"></i>
                 </div>
-              
-                <div class="mb-3">
-                  <label for="company" class="form-label">Company Name*</label>
-                  <input type="text" class="form-control" id="company" name="company" required>
+                <span class="step-label">Service</span>
+              </div>
+              <div class="progress-step" data-step="2">
+                <div class="step-icon">
+                  <i class="fas fa-clipboard-list"></i>
                 </div>
-              
-                <div class="mb-3">
-                  <label for="email" class="form-label">Email Address*</label>
-                  <input type="email" class="form-control" id="email" name="email" required>
+                <span class="step-label">Details</span>
+              </div>
+              <div class="progress-step" data-step="3">
+                <div class="step-icon">
+                  <i class="fas fa-user"></i>
                 </div>
-              
-                <div class="mb-3">
-                  <label for="phone" class="form-label">Phone Number</label>
-                  <input type="tel" class="form-control" id="phone" name="phone">
+                <span class="step-label">Contact</span>
+              </div>
+              <div class="progress-step" data-step="4">
+                <div class="step-icon">
+                  <i class="fas fa-check"></i>
                 </div>
+                <span class="step-label">Confirm</span>
+              </div>
+            </div>
+            
+            <!-- Multi-Step Form with FormSubmit integration -->
+            <form id="multi-step-form" action="https://formsubmit.co/admin@6ixstack.com" method="POST">
+              <input type="hidden" name="_subject" value="New 6ixStack Client Contact Submission">
+              <input type="hidden" name="_template" value="table">
+              <input type="hidden" name="_next" value="https://www.6ixstack.com/thank-you.html">
+              <input type="hidden" name="_autoresponse" value="Thank you for contacting 6ixStack Solutions. We have received your message and will get back to you within 24 hours.">
+              <input type="hidden" name="_cc" value="mohaimenhasan@gmail.com">
               
+              <!-- Step 1: Service Selection -->
+              <div class="form-step active" data-step="1">
+                <h3 class="mb-4">I need help with...</h3>
+                <div class="category-cards">
+                  <div class="category-card" data-value="website-improvement">
+                    <div class="category-icon">
+                      <i class="fas fa-globe"></i>
+                    </div>
+                    <h4 class="category-title">Improving My Website</h4>
+                    <p class="category-description">My website is outdated, slow, or not converting visitors into customers.</p>
+                  </div>
+                  
+                  <div class="category-card" data-value="customer-management">
+                    <div class="category-icon">
+                      <i class="fas fa-users"></i>
+                    </div>
+                    <h4 class="category-title">Managing My Customers</h4>
+                    <p class="category-description">I need a better way to track customers, sales, and follow-ups.</p>
+                  </div>
+                  
+                  <div class="category-card" data-value="online-sales">
+                    <div class="category-icon">
+                      <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h4 class="category-title">Selling Online</h4>
+                    <p class="category-description">I want to start or improve my e-commerce operations.</p>
+                  </div>
+                  
+                  <div class="category-card" data-value="business-automation">
+                    <div class="category-icon">
+                      <i class="fas fa-robot"></i>
+                    </div>
+                    <h4 class="category-title">Automating Processes</h4>
+                    <p class="category-description">I'm spending too much time on repetitive tasks that could be automated.</p>
+                  </div>
+                  
+                  <div class="category-card" data-value="data-insights">
+                    <div class="category-icon">
+                      <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h4 class="category-title">Getting Business Insights</h4>
+                    <p class="category-description">I have data but need help making sense of it to improve my business.</p>
+                  </div>
+                  
+                  <div class="category-card" data-value="mobile-app">
+                    <div class="category-icon">
+                      <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h4 class="category-title">Creating a Mobile App</h4>
+                    <p class="category-description">I need a mobile app for my customers or to streamline operations.</p>
+                  </div>
+                  
+                  <div class="category-card" data-value="it-security">
+                    <div class="category-icon">
+                      <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4 class="category-title">Securing My Business</h4>
+                    <p class="category-description">I'm concerned about cybersecurity and protecting my business data.</p>
+                  </div>
+                  
+                  <div class="category-card" data-value="tech-strategy">
+                    <div class="category-icon">
+                      <i class="fas fa-compass"></i>
+                    </div>
+                    <h4 class="category-title">Planning My Tech Strategy</h4>
+                    <p class="category-description">I need guidance on what technology investments will help my business grow.</p>
+                  </div>
+                  
+                  <div class="category-card" data-value="other-help">
+                    <div class="category-icon">
+                      <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h4 class="category-title">Something Else</h4>
+                    <p class="category-description">I have a different challenge or I'm not sure what I need yet.</p>
+                  </div>
+                </div>
+                <input type="hidden" id="service-input" name="service" required>
+                
+                <div class="form-navigation">
+                  <div></div> <!-- Empty div for spacing -->
+                  <button type="button" class="btn btn-primary next-step" disabled>Next Step</button>
+                </div>
+              </div>
+              
+              <!-- Step 2: Project Details -->
+              <div class="form-step" data-step="2">
+                <h3 class="mb-4">Tell us about your project</h3>
+                
+                <div class="mb-4">
+                  <label class="form-label text-start d-block">What's your timeline?</label>
+                  <div class="priority-options">
+                    <div class="priority-option low-priority" data-value="Flexible (3+ months)">
+                      <div class="priority-icon">
+                        <i class="far fa-calendar"></i>
+                      </div>
+                      <h5 class="priority-title">Flexible</h5>
+                      <p class="priority-description">3+ months timeframe</p>
+                    </div>
+                    
+                    <div class="priority-option medium-priority" data-value="Moderate (1-3 months)">
+                      <div class="priority-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                      </div>
+                      <h5 class="priority-title">Moderate</h5>
+                      <p class="priority-description">1-3 months timeframe</p>
+                    </div>
+                    
+                    <div class="priority-option high-priority" data-value="Urgent (Less than 1 month)">
+                      <div class="priority-icon">
+                        <i class="fas fa-calendar-day"></i>
+                      </div>
+                      <h5 class="priority-title">Urgent</h5>
+                      <p class="priority-description">Less than 1 month</p>
+                    </div>
+                  </div>
+                  <input type="hidden" id="timeline-input" name="timeline" required>
+                </div>
+                
+                <div class="mb-4">
+                  <label for="budget-range" class="form-label text-start d-block">What's your approximate budget?</label>
+                  <div class="budget-slider">
+                    <div class="price-input">
+                      <div class="field">
+                        <span>$</span>
+                        <input type="text" id="budget-min" value="1000" readonly>
+                      </div>
+                      <div class="field">
+                        <span>to $</span>
+                        <input type="text" id="budget-max" value="25000" readonly>
+                      </div>
+                    </div>
+                    <div class="range-slider">
+                      <div class="progress"></div>
+                    </div>
+                    <div class="range-input">
+                      <input type="range" id="budget-range" class="range-min" min="1000" max="100000" value="25000" step="1000">
+                    </div>
+                    <div class="budget-labels">
+                      <span>$1K</span>
+                      <span>$25K</span>
+                      <span>$50K</span>
+                      <span>$75K</span>
+                      <span>$100K+</span>
+                    </div>
+                  </div>
+                  <input type="hidden" id="budget-input" name="budget" value="$5,000 - $25,000">
+                </div>
+                
+                <div class="mb-4">
+                  <label for="message" class="form-label text-start d-block">Project Description</label>
+                  <textarea class="form-control" id="message" name="message" rows="5" placeholder="Please tell us about your project requirements, challenges, or any specific features you need..." required></textarea>
+                </div>
+                
+                <div class="form-navigation">
+                  <button type="button" class="btn btn-outline-primary prev-step">Previous</button>
+                  <button type="button" class="btn btn-primary next-step">Next Step</button>
+                </div>
+              </div>
+              
+              <!-- Step 3: Contact Info -->
+              <div class="form-step" data-step="3">
+                <h3 class="mb-4">Your Contact Information</h3>
+                
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="name" class="form-label text-start d-block">Full Name*</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                  </div>
+                  
+                  <div class="col-md-6 mb-3">
+                    <label for="company" class="form-label text-start d-block">Company Name*</label>
+                    <input type="text" class="form-control" id="company" name="company" required>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label text-start d-block">Email Address*</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                  </div>
+                  
+                  <div class="col-md-6 mb-3">
+                    <label for="phone" class="form-label text-start d-block">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" name="phone">
+                  </div>
+                </div>
+                
                 <div class="mb-3">
-                  <label for="service" class="form-label">Service of Interest*</label>
-                  <select class="form-select" id="service" name="service" required>
-                    <option value="" selected disabled>Select a service</option>
-                    <option value="custom-software">Custom Software Development</option>
-                    <option value="web-mobile">Mobile & Web Applications</option>
-                    <option value="data-analytics">Data Analytics</option>
-                    <option value="cloud">Cloud Solutions</option>
-                    <option value="strategy">IT Strategy Consulting</option>
+                  <label class="form-label text-start d-block">How did you hear about us?</label>
+                  <select class="form-select" id="source" name="source">
+                    <option value="" selected disabled>Please select</option>
+                    <option value="search">Search Engine</option>
+                    <option value="social">Social Media</option>
+                    <option value="referral">Referral</option>
+                    <option value="advertisement">Advertisement</option>
                     <option value="other">Other</option>
                   </select>
                 </div>
-              
-                <div class="mb-3">
-                  <label for="message" class="form-label">Tell us about your project/needs*</label>
-                  <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-                </div>
-              
-                <div class="mb-3 form-check">
+                
+                <div class="mb-3 form-check text-start">
                   <input type="checkbox" class="form-check-input" id="privacy" name="privacy" required>
                   <label class="form-check-label" for="privacy">
-                    I agree to the privacy policy and consent to being contacted about my inquiry.*
+                    I agree to the <a href="privacy-policy.html" target="_blank">privacy policy</a> and consent to being contacted about my inquiry.*
                   </label>
                 </div>
-              
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                
+                <div class="form-navigation">
+                  <button type="button" class="btn btn-outline-primary prev-step">Previous</button>
+                  <button type="button" class="btn btn-primary next-step">Review</button>
                 </div>
-              </form>
+              </div>
+              
+              <!-- Step 4: Summary and Confirmation -->
+              <div class="form-step" data-step="4">
+                <h3 class="mb-4">Review Your Information</h3>
+                
+                <div class="summary-card">
+                  <div class="summary-item">
+                    <div class="summary-icon">
+                      <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="summary-content">
+                      <div class="summary-label">Service</div>
+                      <div class="summary-value" id="summary-service">Custom Software Development</div>
+                    </div>
+                    <div class="summary-edit" data-step="1">
+                      <i class="fas fa-edit"></i>
+                    </div>
+                  </div>
+                  
+                  <div class="summary-item">
+                    <div class="summary-icon">
+                      <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="summary-content">
+                      <div class="summary-label">Timeline</div>
+                      <div class="summary-value" id="summary-timeline">Moderate (1-3 months)</div>
+                    </div>
+                    <div class="summary-edit" data-step="2">
+                      <i class="fas fa-edit"></i>
+                    </div>
+                  </div>
+                  
+                  <div class="summary-item">
+                    <div class="summary-icon">
+                      <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="summary-content">
+                      <div class="summary-label">Budget</div>
+                      <div class="summary-value" id="summary-budget">$5,000 - $25,000</div>
+                    </div>
+                    <div class="summary-edit" data-step="2">
+                      <i class="fas fa-edit"></i>
+                    </div>
+                  </div>
+                  
+                  <div class="summary-item">
+                    <div class="summary-icon">
+                      <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="summary-content">
+                      <div class="summary-label">Project Description</div>
+                      <div class="summary-value" id="summary-message">...</div>
+                    </div>
+                    <div class="summary-edit" data-step="2">
+                      <i class="fas fa-edit"></i>
+                    </div>
+                  </div>
+                  
+                  <div class="summary-item">
+                    <div class="summary-icon">
+                      <i class="fas fa-user"></i>
+                    </div>
+                    <div class="summary-content">
+                      <div class="summary-label">Contact</div>
+                      <div class="summary-value" id="summary-contact">Name, Company</div>
+                    </div>
+                    <div class="summary-edit" data-step="3">
+                      <i class="fas fa-edit"></i>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="form-navigation">
+                  <button type="button" class="btn btn-outline-primary prev-step">Make Changes</button>
+                  <button type="submit" class="btn btn-primary">Submit Request</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
 
@@ -162,5 +922,290 @@
   </main>
 
   <footer id="footer"></footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Multi-step form logic
+      const form = document.getElementById('multi-step-form');
+      const steps = form.querySelectorAll('.form-step');
+      const progressSteps = document.querySelectorAll('.progress-step');
+      const nextButtons = form.querySelectorAll('.next-step');
+      const prevButtons = form.querySelectorAll('.prev-step');
+      const summaryEdits = document.querySelectorAll('.summary-edit');
+      
+      // Service selection
+      const categoryCards = form.querySelectorAll('.category-card');
+      const serviceInput = document.getElementById('service-input');
+      
+      // Timeline selection
+      const priorityOptions = form.querySelectorAll('.priority-option');
+      const timelineInput = document.getElementById('timeline-input');
+      
+      // Budget slider
+      const rangeInput = document.getElementById('budget-range');
+      const progress = document.querySelector('.range-slider .progress');
+      const budgetMin = document.getElementById('budget-min');
+      const budgetMax = document.getElementById('budget-max');
+      const budgetInput = document.getElementById('budget-input');
+      
+      // Step navigation
+      function goToStep(stepNumber) {
+        steps.forEach(step => {
+          step.classList.remove('active');
+        });
+        
+        progressSteps.forEach(step => {
+          step.classList.remove('active');
+          if (parseInt(step.dataset.step) < stepNumber) {
+            step.classList.add('completed');
+          } else {
+            step.classList.remove('completed');
+          }
+        });
+        
+        document.querySelector(`.form-step[data-step="${stepNumber}"]`).classList.add('active');
+        document.querySelector(`.progress-step[data-step="${stepNumber}"]`).classList.add('active');
+        
+        // Update summary on step 4
+        if (stepNumber === 4) {
+          updateSummary();
+        }
+        
+        // Scroll to top of form
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      
+      // Category card selection
+      categoryCards.forEach(card => {
+        card.addEventListener('click', () => {
+          categoryCards.forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+          serviceInput.value = card.dataset.value;
+          
+          // Enable next button when a service is selected
+          nextButtons[0].removeAttribute('disabled');
+        });
+      });
+      
+      // Timeline selection
+      priorityOptions.forEach(option => {
+        option.addEventListener('click', () => {
+          priorityOptions.forEach(o => o.classList.remove('selected'));
+          option.classList.add('selected');
+          timelineInput.value = option.dataset.value;
+        });
+      });
+      
+      // Budget slider logic
+      rangeInput.addEventListener('input', () => {
+        const value = rangeInput.value;
+        
+        // Calculate percentage for progress bar
+        const percent = ((value - 1000) / (100000 - 1000)) * 100;
+        progress.style.right = 100 - percent + '%';
+        
+        // Format values for display
+        const minFormatted = new Intl.NumberFormat('en-US').format(1000);
+        const maxFormatted = new Intl.NumberFormat('en-US').format(value);
+        
+        budgetMin.value = minFormatted;
+        budgetMax.value = maxFormatted;
+        budgetInput.value = `$${minFormatted} - $${maxFormatted}`;
+      });
+      
+      // Initialize slider position
+      window.addEventListener('load', () => {
+        const initialValue = rangeInput.value;
+        const percent = ((initialValue - 1000) / (100000 - 1000)) * 100;
+        progress.style.right = 100 - percent + '%';
+      });
+      
+      // Form validation functions
+      function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+      
+      function validatePhone(phone) {
+        // Skip validation if phone is empty (since it's optional)
+        if (!phone) return true;
+        
+        // Remove all non-digit characters for validation
+        const digits = phone.replace(/\D/g, '');
+        // Phone should have at least 10 digits (North American format)
+        return digits.length >= 10;
+      }
+      
+      function showValidationError(inputElement, message) {
+        // Remove any existing error message
+        const existingError = inputElement.parentElement.querySelector('.validation-error');
+        if (existingError) {
+          existingError.remove();
+        }
+        
+        // Create and add error message
+        const errorElement = document.createElement('div');
+        errorElement.className = 'validation-error text-danger mt-1 text-start';
+        errorElement.innerText = message;
+        inputElement.parentElement.appendChild(errorElement);
+        
+        // Add error class to input
+        inputElement.classList.add('is-invalid');
+        
+        // Focus on the input
+        inputElement.focus();
+      }
+      
+      function clearValidationError(inputElement) {
+        const errorElement = inputElement.parentElement.querySelector('.validation-error');
+        if (errorElement) {
+          errorElement.remove();
+        }
+        inputElement.classList.remove('is-invalid');
+      }
+      
+      // Add input event listeners for real-time validation
+      document.getElementById('email').addEventListener('input', function() {
+        if (this.value && !validateEmail(this.value)) {
+          showValidationError(this, 'Please enter a valid email address');
+        } else {
+          clearValidationError(this);
+        }
+      });
+      
+      document.getElementById('phone').addEventListener('input', function() {
+        if (this.value && !validatePhone(this.value)) {
+          showValidationError(this, 'Please enter a valid phone number (at least 10 digits)');
+        } else {
+          clearValidationError(this);
+        }
+      });
+      
+      // Next button event
+      nextButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const currentStep = parseInt(button.closest('.form-step').dataset.step);
+          let isValid = true;
+          
+          // Validation for each step
+          if (currentStep === 1) {
+            if (!serviceInput.value) {
+              alert('Please select a service to continue.');
+              isValid = false;
+            }
+          } else if (currentStep === 2) {
+            if (!timelineInput.value) {
+              alert('Please select a timeline to continue.');
+              isValid = false;
+            }
+            
+            const messageInput = document.getElementById('message');
+            if (!messageInput.value) {
+              showValidationError(messageInput, 'Please describe your project to continue.');
+              isValid = false;
+            }
+          } else if (currentStep === 3) {
+            const nameInput = document.getElementById('name');
+            const companyInput = document.getElementById('company');
+            const emailInput = document.getElementById('email');
+            const phoneInput = document.getElementById('phone');
+            const privacyCheckbox = document.getElementById('privacy');
+            
+            // Validate name
+            if (!nameInput.value.trim()) {
+              showValidationError(nameInput, 'Please enter your full name.');
+              isValid = false;
+            } else {
+              clearValidationError(nameInput);
+            }
+            
+            // Validate company
+            if (!companyInput.value.trim()) {
+              showValidationError(companyInput, 'Please enter your company name.');
+              isValid = false;
+            } else {
+              clearValidationError(companyInput);
+            }
+            
+            // Validate email
+            if (!emailInput.value.trim()) {
+              showValidationError(emailInput, 'Please enter your email address.');
+              isValid = false;
+            } else if (!validateEmail(emailInput.value)) {
+              showValidationError(emailInput, 'Please enter a valid email address.');
+              isValid = false;
+            } else {
+              clearValidationError(emailInput);
+            }
+            
+            // Validate phone (if provided)
+            if (phoneInput.value && !validatePhone(phoneInput.value)) {
+              showValidationError(phoneInput, 'Please enter a valid phone number (at least 10 digits).');
+              isValid = false;
+            } else {
+              clearValidationError(phoneInput);
+            }
+            
+            // Validate privacy policy
+            if (!privacyCheckbox.checked) {
+              showValidationError(privacyCheckbox, 'You must agree to the privacy policy to continue.');
+              isValid = false;
+            } else {
+              clearValidationError(privacyCheckbox);
+            }
+          }
+          
+          if (isValid) {
+            goToStep(currentStep + 1);
+          }
+        });
+      });
+      
+      // Previous button event
+      prevButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const currentStep = parseInt(button.closest('.form-step').dataset.step);
+          goToStep(currentStep - 1);
+        });
+      });
+      
+      // Summary edit buttons
+      summaryEdits.forEach(edit => {
+        edit.addEventListener('click', () => {
+          const stepToEdit = parseInt(edit.dataset.step);
+          goToStep(stepToEdit);
+        });
+      });
+      
+      // Update summary information
+      function updateSummary() {
+        // Service
+        const selectedService = document.querySelector('.category-card.selected');
+        if (selectedService) {
+          const serviceName = selectedService.querySelector('.category-title').textContent;
+          document.getElementById('summary-service').textContent = serviceName;
+        }
+        
+        // Timeline
+        const selectedTimeline = document.querySelector('.priority-option.selected');
+        if (selectedTimeline) {
+          document.getElementById('summary-timeline').textContent = selectedTimeline.dataset.value;
+        }
+        
+        // Budget
+        document.getElementById('summary-budget').textContent = budgetInput.value;
+        
+        // Project description
+        const message = document.getElementById('message').value;
+        document.getElementById('summary-message').textContent = message.length > 100 ? message.substring(0, 97) + '...' : message;
+        
+        // Contact info
+        const name = document.getElementById('name').value;
+        const company = document.getElementById('company').value;
+        const email = document.getElementById('email').value;
+        document.getElementById('summary-contact').textContent = `${name}, ${company} (${email})`;
+      }
+    });
+  </script>
 </body>
 </html>
