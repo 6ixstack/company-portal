@@ -110,6 +110,25 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateX(-50%);
 }
 
+/* New class for index page section titles - always centered */
+.index-section-title {
+  position: relative;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.index-section-title:after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 60px;
+  height: 4px;
+  background-color: var(--primary-color);
+  transform: translateX(-50%);
+}
+
 /* Center section titles on smaller screens */
 @media (max-width: 991.98px) {
   .section-title {
