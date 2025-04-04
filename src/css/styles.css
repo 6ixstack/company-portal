@@ -89,7 +89,8 @@ h1, h2, h3, h4, h5, h6 {
 .section-title:after {
   content: '';
   position: absolute;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: -10px;
   width: 60px;
   height: 4px;
@@ -615,6 +616,7 @@ header {
 }
 
 .text-section {
+  text-align: center;
   flex: 1 1 600px;
   padding-right: 2rem;
 }
@@ -757,6 +759,41 @@ header {
 
 .why-us-item p {
   padding-left: 2.3rem;
+}
+
+/* Add responsive alignment for Why Choose Us section */
+@media (min-width: 992px) {
+  .why-us .section-title {
+    text-align: left;
+  }
+  
+  .why-us .section-title:after {
+    left: 0;
+    transform: none;
+  }
+  
+  .why-us-item {
+    text-align: left;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .why-us .section-title {
+    text-align: center;
+  }
+  
+  .why-us .section-title:after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .why-us-item {
+    text-align: center;
+  }
+  
+  .why-us-item h3 {
+    justify-content: center;
+  }
 }
 
 /* Testimonials Section */
