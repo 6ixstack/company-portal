@@ -223,21 +223,20 @@ const initHeroCanvas = () => {
       text-align: center;
       width: 100%;
       padding: 0 20px;
-      margin-top: 80px; /* Account for fixed header */
     }
     .hero-center-content .logo {
       width: 100%;
       max-width: 500px;
       height: auto;
-      margin-bottom: 2rem;
+      margin-bottom: 0rem;
       display: block;
       opacity: 1;
       transition: opacity 0.3s ease-in-out;
     }
     .hero-center-content .tagline {
-      font-size: 2rem;
+      font-size: 3rem;
       color: white;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
       font-weight: 700;
       text-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
