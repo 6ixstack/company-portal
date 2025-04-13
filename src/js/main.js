@@ -79,8 +79,8 @@ const initFooter = () => {
           <a href="index.html" class="footer-logo">6ixStack <span class="text-primary">Consulting</span></a>
           <p class="footer-text">Innovative software solutions tailored for small businesses. Expert tech consulting at affordable prices.</p>
           <div class="footer-social">
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/6ixstack-solutions/#" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.instagram.com/6ixstack_solutions/#" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
           </div>
         </div>
         <div class="col-lg-2 footer-widget">
