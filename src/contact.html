@@ -521,6 +521,13 @@
           <div class="col-lg-10 text-center" data-aos="fade-up">
             <h2 class="section-title">How Can We Help?</h2>
             <p class="lead">Let's find the perfect solution for your business needs.</p>
+            <!-- Calendly Call-to-Action -->
+            <div class="mb-4">
+              <button id="calendly-cta" class="btn btn-outline-primary" style="font-size:1.1rem;">
+                <i class="fas fa-calendar-alt me-2"></i>Not sure? Set a meeting with us
+              </button>
+            </div>
+            <!-- End Calendly Call-to-Action -->
             
             <!-- Form Progress Bar -->
             <div class="form-progress mt-5 mb-4">
@@ -1207,5 +1214,21 @@
       }
     });
   </script>
+  <!-- Calendly Widget Script -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendlyBtn = document.getElementById('calendly-cta');
+      if (calendlyBtn) {
+        calendlyBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          Calendly.initPopupWidget({ url: 'https://calendly.com/6ixstack-solutions' });
+          return false;
+        });
+      }
+    });
+  </script>
+  <!-- End Calendly Widget Script -->
 </body>
 </html>
