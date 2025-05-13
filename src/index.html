@@ -427,6 +427,28 @@
 
   <footer id="footer"></footer>
 
+  <!-- Calendly badge widget begin -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+  <script type="text/javascript">
+    window.onload = function() {
+      var badgeText, badgeTextColor = '#ffffff', badgeColor = '#d3367a', badgePlacement = 'left';
+      if (window.innerWidth < 600) {
+        badgeText = '📞 Book Call';
+      } else {
+        badgeText = '📞 Book a Free Consultation';
+      }
+      Calendly.initBadgeWidget({
+        url: 'https://calendly.com/6ixstack-solutions/30min',
+        text: badgeText,
+        color: badgeColor,
+        textColor: badgeTextColor,
+        placement: badgePlacement
+      });
+    }
+  </script>
+  <!-- Calendly badge widget end -->
+
   <script>
     function openServiceModal(serviceId) {
       const modal = document.getElementById(`${serviceId}-modal`);
@@ -447,6 +469,17 @@
         document.body.style.overflow = 'auto';
       }
     }
+
+    // Hide Calendly badge on scroll, show at top
+    window.addEventListener('scroll', function() {
+      var badge = document.querySelector('.calendly-badge-widget');
+      if (!badge) return;
+      if (window.scrollY > 10) {
+        badge.style.display = 'none';
+      } else {
+        badge.style.display = '';
+      }
+    });
   </script>
 </body>
 </html>
