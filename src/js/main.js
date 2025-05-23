@@ -121,7 +121,7 @@ const initFooter = () => {
             <li>
               <i class="fas fa-envelope"></i>
               <div>
-                <a href="mailto:admin@6ixstack.com">admin@6ixstack.com</a>
+                <a href="mailto:info@6ixstack.com">info@6ixstack.com</a>
               </div>
             </li>
           </ul>
