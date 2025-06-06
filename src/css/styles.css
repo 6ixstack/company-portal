@@ -266,6 +266,31 @@ header {
   text-decoration: none;
 }
 
+/* Top Banner Style */
+.top-banner {
+    background-color: #ff3366;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+  }
+
+  .top-banner a {
+    color: #fff;
+    text-decoration: underline;
+    font-weight: 700;
+  }
+
+  body {
+    padding-top: 50px;
+  }
+
 /* Hamburger Menu Styles */
 .navbar-toggler {
   padding: 0.5rem;
