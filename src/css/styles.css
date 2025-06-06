@@ -278,7 +278,10 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 9999;
+    z-index: 1050;
+    transform: translateY(-100%);
+    opacity: 0;
+    animation: slideDownFade 1s ease-out forwards;  
   }
 
   .top-banner a {
