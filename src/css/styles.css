@@ -245,7 +245,7 @@ header {
 }
 
 .navbar {
-  position: sticky;
+  position: fixed;
   padding: 0.5rem 1rem;
   margin: 0;
   width: 100%;
@@ -310,7 +310,7 @@ header {
   }
 
   body {
-    padding-top: 135px !important; /* Adjust for banner + navbar height */
+    padding-top: 125px !important; /* Adjust for banner + navbar height */
   }
 
 /* Hamburger Menu Styles */
