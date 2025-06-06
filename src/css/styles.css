@@ -267,10 +267,6 @@ header {
   text-decoration: none;
 }
 
-.navbar-sticky {
-  top: 50px !important; /* Height of banner */
-  }
-
 .navbar.fixed-top {
   position: fixed;
   top: 42px !important;
@@ -310,7 +306,7 @@ header {
   }
 
   body {
-    padding-top: 125px !important; /* Adjust for banner + navbar height */
+    padding-top: 120px !important; /* Adjust for banner + navbar height */
   }
 
 /* Hamburger Menu Styles */
