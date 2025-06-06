@@ -271,7 +271,9 @@ header {
   }
 
 .navbar.fixed-top {
+  position: fixed;
   top: 42px;
+  width: 100%;
   z-index: 1040;
 }
 
