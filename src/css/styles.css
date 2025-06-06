@@ -266,6 +266,10 @@ header {
   text-decoration: none;
 }
 
+.navbar-sticky {
+  top: 50px !important; /* Height of banner */
+  }
+
 /* Top Banner Style */
 .top-banner {
     background-color: #B42B6A;
@@ -284,6 +288,13 @@ header {
     animation: slideDownFade 1s ease-out forwards;  
   }
 
+  @keyframes slideDownFade {
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
   .top-banner a {
     color: #fff;
     text-decoration: underline;
@@ -291,7 +302,7 @@ header {
   }
 
   body {
-    padding-top: 50px;
+    padding-top: 100px; /* Adjust for banner + navbar height */
   }
 
 /* Hamburger Menu Styles */
