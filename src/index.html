@@ -448,5 +448,20 @@
       }
     }
   </script>
+
+  <!-- Calendly Widget Script -->
+  <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var calendlyLink = document.getElementById('calendly-banner-link');
+      if (calendlyLink) {
+        calendlyLink.addEventListener('click', function (e) {
+          e.preventDefault();
+          Calendly.initPopupWidget({ url: 'https://calendly.com/6ixstack-solutions' });
+          return false;
+        });
+      }
+    });
+  </script>
 </body>
 </html>
