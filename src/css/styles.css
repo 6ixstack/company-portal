@@ -272,7 +272,7 @@ header {
 
 .navbar.fixed-top {
   position: fixed;
-  top: 42px;
+  top: 42px !important;
   width: 100%;
   z-index: 1040;
 }
@@ -309,7 +309,7 @@ header {
   }
 
   body {
-    padding-top: 112px; /* Adjust for banner + navbar height */
+    padding-top: 132px !important; /* Adjust for banner + navbar height */
   }
 
 /* Hamburger Menu Styles */
