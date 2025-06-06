@@ -270,6 +270,11 @@ header {
   top: 50px !important; /* Height of banner */
   }
 
+.navbar.fixed-top {
+  top: 50px;
+  z-index: 1040;
+}
+
 /* Top Banner Style */
 .top-banner {
     background-color: #B42B6A;
@@ -302,7 +307,7 @@ header {
   }
 
   body {
-    padding-top: 100px; /* Adjust for banner + navbar height */
+    padding-top: 120px; /* Adjust for banner + navbar height */
   }
 
 /* Hamburger Menu Styles */
