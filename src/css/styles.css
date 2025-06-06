@@ -310,7 +310,7 @@ header {
   }
 
   body {
-    padding-top: 80px !important; /* Adjust for banner + navbar height */
+    padding-top: 120px !important; /* Adjust for banner + navbar height */
   }
 
 /* Hamburger Menu Styles */
