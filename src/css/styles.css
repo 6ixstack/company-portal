@@ -246,7 +246,7 @@ header {
 
 .navbar {
   position: sticky;
-  padding: 0.5rem 1rem;
+  padding: 1rem 1.5rem;
   margin: 0;
   width: 100%;
 }
@@ -268,7 +268,7 @@ header {
 }
 
 .navbar.fixed-top {
-  position: fixed;
+  position: sticky;
   top: 42px !important;
   width: 100%;
   z-index: 1049;
