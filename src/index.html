@@ -33,8 +33,11 @@
 </head>
 <body>
   <header id="header"></header>
+    <div class="top-banner">
+      Book a free 30-min consultation with us - <a href="#" id="calendly-banner-link">Schedule Now</a>
+    </div>
 
-  <main>
+  <main>   
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-content container"></div>
@@ -445,5 +448,22 @@
       }
     }
   </script>
+
+  <!-- Calendly Widget Script -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      var calendlyLink = document.getElementById('calendly-banner-link');
+      if (calendlyLink) {
+        calendlyLink.addEventListener('click', function (e) {
+          e.preventDefault();
+          Calendly.initPopupWidget({ url: 'https://calendly.com/6ixstack-solutions' });
+          return false;
+        });
+      }
+    });
+  </script>
+  <!-- End Calendly Widget Script -->
 </body>
 </html>

@@ -23,7 +23,7 @@ const initHeader = () => {
   // Add header content
   header.innerHTML = `
     <div class="container">
-      <nav class="navbar navbar-expand-lg">
+      <nav class="navbar navbar-expand-lg fixed-top">
         <div class="navbar-brand">
           <a href="index.html" class="text-decoration-none">
             <span>6ixStack <span class="text-primary">Solutions</span></span>
