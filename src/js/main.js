@@ -2,6 +2,7 @@
 import * as THREE from 'three';
 import { gsap } from 'gsap';
 import AOS from 'aos';
+import DOMPurify from 'dompurify';
 import logoImage from '../assets/images/logo.png';
 import background1 from '../assets/images/homebackground/background1.png';
 import background2 from '../assets/images/homebackground/background2.png';
@@ -601,12 +602,14 @@ const initContactForm = () => {
     // For demo purposes, show a success message
     const formContainer = contactForm.parentElement;
     
+    const sanitizedName = DOMPurify.sanitize(name);
+    const sanitizedEmail = DOMPurify.sanitize(email);
     formContainer.innerHTML = `
       <div class="text-center py-5">
         <i class="fas fa-check-circle text-primary" style="font-size: 4rem;"></i>
         <h2 class="mt-4">Message Sent Successfully!</h2>
-        <p class="lead">Thank you for reaching out to us, ${name}.</p>
-        <p>We've received your message and will contact you at ${email} within 24 hours.</p>
+        <p class="lead">Thank you for reaching out to us, ${sanitizedName}.</p>
+        <p>We've received your message and will contact you at ${sanitizedEmail} within 24 hours.</p>
         <button class="btn btn-primary mt-4" id="reset-form">Send Another Message</button>
       </div>
     `;
