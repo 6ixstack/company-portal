@@ -245,6 +245,7 @@ header {
 }
 
 .navbar {
+  position: sticky;
   padding: 0.5rem 1rem;
   margin: 0;
   width: 100%;
@@ -265,6 +266,48 @@ header {
   color: var(--secondary-color);
   text-decoration: none;
 }
+
+.navbar.fixed-top {
+  position: fixed;
+  top: 42px !important;
+  width: 100%;
+  z-index: 1049;
+}
+
+/* Top Banner Style */
+.top-banner {
+    background-color: #B42B6A;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1050;
+    transform: translateY(-100%);
+    opacity: 0;
+    animation: slideDownFade 1s ease-out forwards;  
+  }
+
+  @keyframes slideDownFade {
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .top-banner a {
+    color: #fff;
+    text-decoration: underline;
+    font-weight: 700;
+  }
+
+  body {
+    padding-top: 100px !important; /* Adjust for banner + navbar height */
+  }
 
 /* Hamburger Menu Styles */
 .navbar-toggler {
