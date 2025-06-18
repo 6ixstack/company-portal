@@ -270,6 +270,36 @@ const initHeroCanvas = () => {
       justify-content: center;
       flex-wrap: wrap;
     }
+    /* Ensure hero section fills viewport and centers content */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    @media (max-width: 600px) {
+      .hero-center-content {
+        margin-top: 20px;
+        padding: 0 5px;
+      }
+      .hero {
+        min-height: 80vh;
+      }
+    }
+    @media (max-height: 900px) {
+      .hero-center-content {
+        margin-top: 20px;
+        padding: 0 10px;
+      }
+      .hero-center-content .logo {
+        max-width: 350px;
+      }
+      .hero {
+        min-height: 80vh;
+      }
+    }
   `;
   document.head.appendChild(style);
   
